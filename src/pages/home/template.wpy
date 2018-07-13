@@ -126,6 +126,8 @@
   import BargainBox from '../../components/template/bargain_box';
   import Separator from '../../components/template/separator';
   import AddressBox from '../../components/template/address_box';
+  import Tips from '../../utils/Tips';
+  import homeLayout from './homeLayout';
 
   @connect({
     homePageId: store.get('homePageId'),
@@ -154,7 +156,9 @@
         console.info(`[template] load home page`);
         this.pageId = this.homePageId;
       }
-      const page = await await config.layout(this.pageId);
+      // const page = await await config.layout(this.pageId);
+      // const page = JSON.parse(homeLayout);
+      const page = homeLayout;
       this.renderTemplatePage(page);
       console.info(`[template] render template page success`);
       this.loaded();
@@ -168,6 +172,7 @@
      */
     renderTemplatePage(page) {
       this.components = page.components;
+      console.log('home renderTemplatePage: ', this.components);
       this.plugins = page.plugins;
       this.triggers = page.triggers;
       this.param = page.param;
@@ -239,6 +244,15 @@
       }
     }
     methods = {
+      tap(goodsId) {
+        Tips.actionWithFunc(['查看商品', '删除记录'],
+          () => {
+            this.$root.$navigate(`/pages/goods/detail?goodsId=${goodsId}`);
+          },
+          () => {
+            this.$emit('remove', goodsId);
+          });
+      },
     };
     components = {
       Loading: Loading,

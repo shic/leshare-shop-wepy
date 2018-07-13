@@ -16,6 +16,7 @@ export default class config extends base {
    * 获取布局视图
    */
   static layout(pageId) {
+    console.log('Get layout called;');
     const url = `${this.baseUrl}/layout/pages/${pageId}`;
     return this.get(url).then(data => this._processPage(data.message));
   }

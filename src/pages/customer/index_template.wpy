@@ -85,7 +85,8 @@
       const result = await auth.user({block: true, redirect: true});
       if (!result) return;
       await store.init();
-      const page = await config.layout(this.customPageId);
+      // const page = await config.layout(this.customPageId);
+      const page = {};
       if (page) {
         this.components = page.components;
         this.plugins = page.plugins;
